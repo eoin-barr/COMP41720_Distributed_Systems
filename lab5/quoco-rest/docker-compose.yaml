@@ -1,0 +1,33 @@
+version: "3"
+services:
+  broker:
+    build: ./broker
+    ports:
+      - 8085:8085
+    container_name: broker
+    environment:
+      - BROKER_URLS=http://auldfellas:8081/,http://girlpower:8082/,http://dodgydrivers:8083/
+
+  auldfellas:
+    build: ./auldfellas
+    depends_on:
+      - broker
+    container_name: auldfellas
+    ports:
+      - 8081:8081
+
+  girlpower:
+    build: ./girlpower
+    depends_on:
+      - broker
+    container_name: girlpower
+    ports:
+      - 8082:8082
+
+  dodgydrivers:
+    build: ./dodgydrivers
+    depends_on:
+      - broker
+    container_name: dodgydrivers
+    ports:
+      - 8083:8083
